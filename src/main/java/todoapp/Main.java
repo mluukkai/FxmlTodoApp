@@ -10,22 +10,33 @@ import todoapp.domain.TodoService;
 
 
 public class Main extends Application {
+    private Stage stage;
+    private TodoService todoService;
+    private Scene loginScene;
+    
+    @Override
+    public void init() throws Exception {
+        todoService = new TodoService(new FakeTodoDao(), new FakeUserDao());
+        
+        FXMLLoader loginSceneLoader = new FXMLLoader(getClass().getResource("/fxml/LoginScene.fxml"));       
+        Parent loginPane = loginSceneLoader.load();
+        LoginSceneController controller = loginSceneLoader.getController();
+        controller.setTodoService(todoService); 
+        loginScene = new Scene(loginPane);
+
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
-        TodoService todoApp = new TodoService(new FakeTodoDao(), new FakeUserDao());
-        
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoginScene.fxml"));
-            
-        Parent root = loader.load();       
-        LoginSceneController controller = loader.getController();
-        controller.setTodoService(todoApp);
-        
-        Scene scene = new Scene(root);
-
+        this.stage = stage;
+              
         stage.setTitle("TodoApp");
-        stage.setScene(scene);
+        setloginScene();
         stage.show();
+    }
+
+    private void setloginScene() {
+        stage.setScene(loginScene);
     }
 
     public static void main(String[] args) {
