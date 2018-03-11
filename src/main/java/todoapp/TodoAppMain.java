@@ -9,10 +9,11 @@ import javafx.stage.Stage;
 import todoapp.domain.TodoService;
 
 
-public class Main extends Application {
+public class TodoAppMain extends Application {
     private Stage stage;
     private TodoService todoService;
     private Scene loginScene;
+    private Scene newUserScene;
     
     @Override
     public void init() throws Exception {
@@ -20,10 +21,18 @@ public class Main extends Application {
         
         FXMLLoader loginSceneLoader = new FXMLLoader(getClass().getResource("/fxml/LoginScene.fxml"));       
         Parent loginPane = loginSceneLoader.load();
-        LoginSceneController controller = loginSceneLoader.getController();
-        controller.setTodoService(todoService); 
+        LoginSceneController loginSceneController = loginSceneLoader.getController();
+        loginSceneController.setTodoService(todoService); 
+        loginSceneController.setApplication(this);
         loginScene = new Scene(loginPane);
 
+        FXMLLoader newUserSceneLoader = new FXMLLoader(getClass().getResource("/fxml/NewUserScene.fxml"));       
+        Parent newUserPane = newUserSceneLoader.load();
+        NewUserSceneController newUserSceneController = newUserSceneLoader.getController();
+        newUserSceneController.setTodoService(todoService); 
+        newUserSceneController.setApplication(this);
+        newUserScene = new Scene(newUserPane);    
+        
     }
 
     @Override
@@ -35,10 +44,14 @@ public class Main extends Application {
         stage.show();
     }
 
-    private void setloginScene() {
+    public void setloginScene() {
         stage.setScene(loginScene);
     }
 
+    public void setNewUserScene() {
+        stage.setScene(newUserScene);
+    }    
+    
     public static void main(String[] args) {
         launch(args);
     }

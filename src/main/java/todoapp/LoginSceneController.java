@@ -10,13 +10,16 @@ import todoapp.domain.TodoService;
 
 public class LoginSceneController implements Initializable {
     private TodoService todoService;
-    private Main main;
+    private TodoAppMain application;
 
     public void setTodoService(TodoService todoService) {
         this.todoService = todoService;
     }
 
-
+    public void setApplication(TodoAppMain application) {
+        this.application = application;
+    }
+    
     @FXML
     private TextField username;
     
@@ -26,8 +29,8 @@ public class LoginSceneController implements Initializable {
     }
    
     @FXML
-    private void handleCreateUser(ActionEvent event) {
-        System.out.println("You clicked me!");
+    private void handleNewUser(ActionEvent event) {
+        application.setNewUserScene();
     }    
     
     @Override
