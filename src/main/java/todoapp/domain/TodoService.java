@@ -117,7 +117,11 @@ public class TodoService {
     * @return true jos käyttäjätunnus on luotu onnistuneesti, muuten false 
     */ 
     
-    public boolean createUser(String username, String name)  {   
+    public boolean createUser(String username, String name)  { 
+        if ( username.length()<3) {
+            return false;
+        }
+        
         if (userDao.findByUsername(username) != null) {
             return false;
         }

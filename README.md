@@ -95,6 +95,7 @@ public class LoginSceneController implements Initializable {
    
     @FXML
     private void handleNewUser(ActionEvent event) {
+        // vaihdetaan uuden käyttäjän luomisnäkymään
         application.setNewUserScene();
     }    
     

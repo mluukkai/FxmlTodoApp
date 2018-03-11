@@ -7,11 +7,12 @@
 
 <AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="todoapp.NewUserSceneController">
    <children>
-      <Button layoutX="27.0" layoutY="150.0" mnemonicParsing="false" text="create user" />
-      <TextField layoutX="119.0" layoutY="56.0" />
-      <TextField layoutX="119.0" layoutY="100.0" />
+      <Button layoutX="27.0" layoutY="150.0" mnemonicParsing="false" onAction="#handleCreate" text="create user" />
+      <TextField fx:id="username" layoutX="119.0" layoutY="56.0" />
+      <TextField fx:id="name" layoutX="119.0" layoutY="100.0" />
       <Label layoutX="20.0" layoutY="105.0" text="name" />
       <Label layoutX="17.0" layoutY="61.0" prefHeight="17.0" prefWidth="74.0" text="username" />
       <Button layoutX="150.0" layoutY="150.0" mnemonicParsing="false" onAction="#handleBack" text="back to login screen" />
+      <Label fx:id="errorMessage" layoutX="74.0" layoutY="26.0" prefHeight="17.0" prefWidth="167.0" textFill="#c62323" />
    </children>
 </AnchorPane>
