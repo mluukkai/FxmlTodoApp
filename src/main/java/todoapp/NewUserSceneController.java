@@ -38,7 +38,11 @@ public class NewUserSceneController implements Initializable {
     
     @FXML
     private void handleCreate(ActionEvent event) {
-        if ( todoService.createUser(username.getText(), name.getText()) ){
+        boolean creationOk = todoService.createUser(username.getText(), name.getText());
+        
+        if ( creationOk  ){
+            username.setText("");
+            name.setText("");
             application.setloginScene(); 
         } else {
             errorMessage.setText("user creation failed");

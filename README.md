@@ -1,6 +1,6 @@
 # FXML-todoApp
 
-Esimerkki FXML:llä tehdystä sovelluksesta joka koostuu useasta näkymästä eli Scenestä.
+Esimerkki FXML:llä tehdystä sovelluksesta, joka koostuu useasta näkymästä eli _Scenestä_.
 
 Jokaisella näkymällä on oma kontrolleri. Sovelluksen alustusvaiheessa kontrollereille _injektoidaan_ setterimetodien avulla sovelluslogiikkaolio _TodoService_ sekä sovellusta vastaava olio.
 
@@ -79,25 +79,51 @@ Eli _loginSceneLoader_ oliolta saadaan Sceneä vastaava kontrolleri ja tälle in
 Kontrollereista on nyt helppo käyttää sovelluslogiikka sekä vaihtaa näkymää. Näkymän vaihtaminen tapahtuu kutsumalla sovelluksen pääluokan _application_ metodeja, esim. _setNewUserScene_:
 
 ```java
-public class LoginSceneController implements Initializable {
+public class NewUserSceneController implements Initializable {
     private TodoService todoService;
     private TodoAppMain application;
 
+
+    @FXML
+    private TextField username;
+
+    @FXML
+    private TextField name;
+    
+    @FXML
+    private Label errorMessage;
+    
     public void setTodoService(TodoService todoService) {
         this.todoService = todoService;
     }
 
-    public void setApplication(Main application) {
+    public void setApplication(TodoAppMain application) {
         this.application = application;
     }
-    
-    // ...
-   
+
     @FXML
-    private void handleNewUser(ActionEvent event) {
-        // vaihdetaan uuden käyttäjän luomisnäkymään
-        application.setNewUserScene();
-    }    
+    private void handleBack(ActionEvent event) {
+        // palataan login-näkymään
+        application.setloginScene();
+    }   
     
+    @FXML
+    private void handleCreate(ActionEvent event) {
+        // yritetään luoda uusi käyttäjä
+        boolean creationOk = todoService.createUser(username.getText(), name.getText());
+        
+        if ( creationOk ){
+            // jos onnistui, tyhjennetään syötekentät ja palataan login-näkymään
+            username.setText("");
+            name.setText("");
+            application.setloginScene(); 
+        } else {
+            // jos ei, tulostetaan virheilmoitus
+            errorMessage.setText("user creation failed");
+        }
+        
+    }
+
 }
+
 ```
